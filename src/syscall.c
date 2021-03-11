@@ -13,6 +13,8 @@
 // library system call function. The saved user %esp points
 // to a saved program counter, and then the first argument.
 
+int readcount = 0;
+
 // Fetch the int at addr from the current process.
 int
 fetchint(uint addr, int *ip)
@@ -138,7 +140,10 @@ syscall(void)
 
   num = curproc->tf->eax;
   if(num==SYS_read){
-    curproc->readcount = curproc->readcount + 1;
+    readcount++;
+  }
+  if(num==SYS_getreadcount){
+    curproc->readid = readcount;
   }
   if(num > 0 && num < NELEM(syscalls) && syscalls[num]) {
     curproc->tf->eax = syscalls[num]();
