@@ -92,6 +92,7 @@ sys_uptime(void)
 
 // adding my system call
 int
-sys_getreadcount(void){
+sys_getreadcount(void)
+{
   return myproc()->readcount;
 }
